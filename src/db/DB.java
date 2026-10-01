@@ -2,9 +2,7 @@ package db;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class DB {
@@ -30,6 +28,22 @@ public class DB {
             } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
+        }
+    }
+    public static void closeStatement(Statement st){
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
+            }
+        }
+    }
+    public static void closeresultSet(ResultSet resultSet){
+        try {
+            closeresultSet(resultSet);
+        } catch (RuntimeException e) {
+            throw new DbException(e.getMessage());
         }
     }
     public static Properties loadProperties(){
